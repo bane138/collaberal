@@ -13,11 +13,9 @@ class UserController extends BaseController
      */
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => 'showLogin'));
+        //$this->beforeFilter('csrf', array('on' => 'post'));
 
-        $this->beforeFilter('csrf', array('on' => 'post'));
-
-        $this->afterFilter('log', array('only' => array('')));
+         $this->afterFilter('log', array('only' => array('')));
     }
     /**
      * getIndex shows the user view
@@ -26,6 +24,8 @@ class UserController extends BaseController
      */
     public function getIndex($id)
     {
+        $this->beforeFilter('auth', array('except' => 'showLogin'));
+        
         $user = User::find($id);
 
         return View::make('users', array('user' => $user));
@@ -39,6 +39,15 @@ class UserController extends BaseController
     {
         return View::make('login');
     }
+    
+     /**
+     * showRegister display the registration form
+     * @return View::make(register);
+     */
+    public function showRegister()
+    {
+        return View::make('register');
+    }
 
     /**
      * doAuth authorize the user (login)
@@ -46,9 +55,13 @@ class UserController extends BaseController
      * @param $password string password
      * @return View::make('user')
      */
-    public function doAuth($username, $password)
+    public function doAuth()
     {
-        return View::make('users', array('user' => array($username, $password)));
+        if(Auth::attempt(array('username'  => Input::get('username'), 'password' => Input::get('password')))) {
+            return Redirect::intended('users');
+        } else {
+            return View::make('login', array('error' => 'Invalid username or password'));
+        }
     }
 
     /**
@@ -56,12 +69,10 @@ class UserController extends BaseController
      * @param mixed $data
      * @return View::make('user')
      */
-    public function createUser(array $data)
+    public function createUser()
     {
-        if(!is_array($data)) {
-            throw new \Symfony\Component\Finder\Exception\AccessDeniedException(e);
-        }
-
-        return View::make('users', array('user' => $data['username'], 'data' => $data));
+        $data = Input::all();
+        $users = User::create($data);
+        return View::make('users', array('user' => $data));
     }
 }

@@ -20,6 +20,8 @@ Route::get('users', array('before' => 'auth', 'uses' => 'UserController@getIndex
 
 Route::get('login', 'UserController@showLogin');
 
-Route::post('register', 'UserController@createUser');
+Route::get('register', 'UserController@showRegister');
 
-Route::post('authorize', 'UserController@doAuth');
+Route::post('create', array('before' => 'csrf', 'UserController@createUser'));
+
+Route::post('authorize', array('before' => 'csrf', 'UserController@doAuth'));

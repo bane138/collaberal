@@ -1,9 +1,14 @@
 @extends('main')
 
 @section('content')
-    <div class="error-msg"> {{{ isset($error) ? $error : "" }}}</div>
     <fieldset>
-        <form method="POST" action="/authorize">
+        <form method="POST" action="create">
+            <label>First Name:</label><br />
+            <input type="text" name="first_name" /><br />
+            <label>Last Name:</label><br />
+            <input type="text" name="last_name" /><br />
+            <label>Email:</label><br />
+            <input type="text" name="email" /><br />
             <label>Username:</label><br />
             <input type="text" name="username" /><br />
             <label>Password:</label><br />

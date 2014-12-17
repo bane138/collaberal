@@ -57,10 +57,12 @@ class UserController extends BaseController
      */
     public function doAuth()
     {
-        if(Auth::attempt(array('username'  => Input::get('username'), 'password' => Input::get('password')))) {
+        if(Auth::attempt(array('username'  => Input::get('username'),
+            'password' => Hash::make(Input::get('password'))))) {
             return Redirect::intended('users');
         } else {
-            return View::make('login', array('error' => 'Invalid username or password'));
+            return View::make('login', 
+                    array('error' => 'Invalid username or password'));
         }
     }
 
@@ -71,8 +73,9 @@ class UserController extends BaseController
      */
     public function createUser()
     {
-        $data = Input::all();
-        $users = User::create($data);
+        $data = Input::except('submit', '_token');
+        $data['password'] = Hash::make($data['password']);
+        User::insert($data);
         return View::make('users', array('user' => $data));
     }
 }

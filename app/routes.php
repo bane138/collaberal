@@ -22,6 +22,6 @@ Route::get('login', 'UserController@showLogin');
 
 Route::get('register', 'UserController@showRegister');
 
-Route::post('create', array('before' => 'csrf', 'UserController@createUser'));
+Route::post('create', 'UserController@createUser');//array('before' => 'csrf', 
 
-Route::post('authorize', array('before' => 'csrf', 'UserController@doAuth'));
+Route::post('authorize', 'UserController@doAuth');//array('before' => 'csrf', 

@@ -8,7 +8,7 @@
             <input type="text" name="username" /><br />
             <label>Password:</label><br />
             <input type="password" name="password" /><br />
-            <input type="submit" name="submit" value="Create User" />
+            <input type="submit" name="submit" value="Login" />
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         </form>
     </fieldset>

@@ -22,13 +22,13 @@ class UserController extends BaseController
      * @param $id int user id
      * @return View::make('user')
      */
-    public function getIndex($id)
+    public function getIndex($id = 0)
     {
         $this->beforeFilter('auth', array('except' => 'showLogin'));
         
-        $user = User::find($id);
+        $users = User::all();
 
-        return View::make('users', array('user' => $user));
+        return View::make('list', array('users' => $users));
     }
 
     /**
@@ -58,12 +58,24 @@ class UserController extends BaseController
     public function doAuth()
     {
         if(Auth::attempt(array('username'  => Input::get('username'),
-            'password' => Hash::make(Input::get('password'))))) {
-            return Redirect::intended('users');
+            'password' => Input::get('password')))) {
+            $users = User::all();
+            $id = Auth::id();
+            return View::make('users', array('users' => $users, 'id' => $id));
         } else {
             return View::make('login', 
                     array('error' => 'Invalid username or password'));
         }
+    }
+    
+    /**
+     * logOut log the current user out
+     * @return View::make('/');
+     */
+    public function logOut()
+    {
+        Auth::logout();
+        return View::make('main');
     }
 
     /**
@@ -76,6 +88,7 @@ class UserController extends BaseController
         $data = Input::except('submit', '_token');
         $data['password'] = Hash::make($data['password']);
         User::insert($data);
-        return View::make('users', array('user' => $data));
+        $users = User::all();
+        return View::make('users', array('users' => $users));
     }
 }

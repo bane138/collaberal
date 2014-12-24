@@ -18,6 +18,10 @@ Route::get('/', function()
 
 Route::get('users', array('before' => 'auth', 'uses' => 'UserController@getIndex'));
 
+Route::get('list', array('before' => 'auth', 'uses' => 'UserController@getIndex'));
+
+Route::get('logout', 'UserController@logOut');
+
 Route::get('login', 'UserController@showLogin');
 
 Route::get('register', 'UserController@showRegister');

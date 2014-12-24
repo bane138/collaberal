@@ -28,6 +28,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateUserTable' => $baseDir . '/app/database/migrations/2014_12_24_203845_create_user_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2014_12_16_235852_create_users_table.php',
     'Crypt_AES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
     'Crypt_Base' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Base.php',

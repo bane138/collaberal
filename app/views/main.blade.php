@@ -12,7 +12,12 @@
 			<ul>
 				<li><a href="" class="header-link">Home</a></li>
 				<li><a href="register" class="header-link">Register</a></li>
+                                @if(Auth::check())
+                                <li><a href="logout" class="header-link">Logout</a></li>
+                                @else
 				<li><a href="login" class="header-link">Login</a></li>
+                                @endif
+                                
 			</ul>
 		</div>
 	</header>

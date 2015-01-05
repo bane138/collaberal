@@ -13,9 +13,9 @@ class UserController extends BaseController
      */
     public function __construct()
     {
-        //$this->beforeFilter('csrf', array('on' => 'post'));
+        $this->beforeFilter('csrf', array('on' => 'post'));
 
-         $this->afterFilter('log', array('only' => array('')));
+        $this->afterFilter('log', array('only' => array('')));
     }
     /**
      * getIndex shows the user view
@@ -26,7 +26,11 @@ class UserController extends BaseController
     {
         $this->beforeFilter('auth', array('except' => 'showLogin'));
         
-        $users = User::all();
+        //$users = Cache::get('users');
+        //if(!$users) {
+            $users = User::all();
+            //Cache::add('users', $users, '20');
+        //}
 
         return View::make('list', array('users' => $users));
     }
@@ -48,6 +52,17 @@ class UserController extends BaseController
     {
         return View::make('register');
     }
+    
+    /**
+     * showAccount display the users account home
+     * @return View::make(account)
+     */
+    
+    public function showProfile($id) 
+    {
+    	$user = User::find($id);
+    	return View::make('profile', array('user' => $user));
+    }
 
     /**
      * doAuth authorize the user (login)
@@ -60,6 +75,7 @@ class UserController extends BaseController
         if(Auth::attempt(array('username'  => Input::get('username'),
             'password' => Input::get('password')))) {
             $users = User::all();
+            //Cache::add('users', $users, '20');
             $id = Auth::id();
             return View::make('users', array('users' => $users, 'id' => $id));
         } else {
@@ -89,6 +105,7 @@ class UserController extends BaseController
         $data['password'] = Hash::make($data['password']);
         User::insert($data);
         $users = User::all();
+        //Cache::add('users', $users, '20');
         return View::make('users', array('users' => $users));
     }
 }

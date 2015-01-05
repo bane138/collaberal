@@ -2,19 +2,18 @@
 
 @section('content')
     <fieldset>
-        <form method="POST" action="create">
-            <label>First Name:</label><br />
-            <input type="text" name="first_name" /><br />
-            <label>Last Name:</label><br />
-            <input type="text" name="last_name" /><br />
-            <label>Email:</label><br />
-            <input type="text" name="email" /><br />
-            <label>Username:</label><br />
-            <input type="text" name="username" /><br />
-            <label>Password:</label><br />
-            <input type="password" name="password" /><br />
-            <input type="submit" name="submit" value="Create User" />
-            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-        </form>
+        {{ Form::open(array('url' => '/create')) }}
+            {{ Form::label('firstname', 'First Name') }}:<br />
+            {{ Form::text('firstname') }}<br />
+            {{ Form::label('lastname', 'Last Name') }}:<br />
+            {{ Form::text('lastname') }}<br />
+            {{ Form::label('email', 'Email') }}:<br />
+            {{ Form::email('email') }}<br />
+            {{ Form::label('username', 'Username') }}:<br />
+            {{ Form::text('username') }}<br />
+            {{ Form::label('password', 'Password') }}:<br />
+            {{ Form::password('password') }}<br />
+            {{ Form::submit('Create User') }}<br />
+        {{ Form::close() }}
     </fieldset>
 @stop

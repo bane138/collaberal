@@ -8,32 +8,38 @@
 </head>
 <body>
 	<header>
-		<div class="header container">
-			<ul>
-				<li><a href="" class="header-link">Home</a></li>
-				<li><a href="register" class="header-link">Register</a></li>
-                                @if(Auth::check())
-                                <li><a href="logout" class="header-link">Logout</a></li>
-                                @else
-				<li><a href="login" class="header-link">Login</a></li>
-                                @endif
-                                
-			</ul>
+		<div class="container header">
+			<div class="inner-container">
+				<ul>
+					<li><a href="" class="header-link">Home</a></li>
+					<li><a href="register" class="header-link">Register</a></li>
+	                @if(Auth::check())
+	                <li><a href="profile/{{ isset($id) ? $id : 0 }}" class="header-link">My Account</a></li>
+	                <li><a href="logout" class="header-link">Logout</a></li>
+	                @else
+					<li><a href="login" class="header-link">Login</a></li>
+	                @endif
+				</ul>
+			</div>
 		</div>
 	</header>
 	<section>
-		<div class="content container">
-			@yield('content')
+		<div class="container content">
+			<div class="inner-container">
+				@yield('content')
+			</div>
 		</div>
 	</section>
 	<footer>
-		<div class="footer container">
-			<ul>
-				<li><a href="" class="header-link">Home</a></li>
-				<li><a href="register" class="header-link">Register</a></li>
-				<li><a href="login" class="header-link">Login</a></li>
-			</ul>
-			<div class="footer-copyright">&copy;2014</div>
+		<div class="container footer">
+			<div class="inner-container">
+				<ul>
+					<li><a href="" class="header-link">Home</a></li>
+					<li><a href="register" class="header-link">Register</a></li>
+					<li><a href="login" class="header-link">Login</a></li>
+				</ul>
+				<div class="footer-copyright">&copy;2014</div>
+			</div>
 		</div>
 	</footer>
 </body>

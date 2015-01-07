@@ -60,8 +60,12 @@ class UserController extends BaseController
     
     public function showProfile($id) 
     {
-    	$user = User::find($id);
-    	return View::make('profile', array('user' => $user));
+    	if($id == 0) {
+			return View::make('login');
+	   	} else {
+	    	$user = User::find($id);
+    		return View::make('profile', array('user' => $user, "id" => $id));
+	   	}
     }
 
     /**
@@ -77,7 +81,7 @@ class UserController extends BaseController
             $users = User::all();
             //Cache::add('users', $users, '20');
             $id = Auth::id();
-            return View::make('users', array('users' => $users, 'id' => $id));
+            return View::make('list', array('users' => $users, 'id' => $id));
         } else {
             return View::make('login', 
                     array('error' => 'Invalid username or password'));
@@ -106,6 +110,6 @@ class UserController extends BaseController
         User::insert($data);
         $users = User::all();
         //Cache::add('users', $users, '20');
-        return View::make('users', array('users' => $users));
+        return View::make('list', array('users' => $users));
     }
 }

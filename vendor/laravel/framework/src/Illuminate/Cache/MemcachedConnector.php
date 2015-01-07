@@ -1,6 +1,6 @@
 <?php namespace Illuminate\Cache;
 
-use Memcache;
+use Memcached;
 
 class MemcachedConnector {
 
@@ -41,7 +41,7 @@ class MemcachedConnector {
 	 */
 	protected function getMemcached()
 	{
-		return new Memcache;
+		return new Memcached;
 	}
 
 }

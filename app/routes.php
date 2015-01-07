@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('main');
+	return View::make('home');
 });
 
 Route::get('users', array('before' => 'auth', 'uses' => 'UserController@getIndex'));
